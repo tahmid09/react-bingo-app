@@ -192,14 +192,14 @@ class App extends Component {
     );
   }
 
-  selectCell =  (event) => {
-     let checkpoint = Object.assign({}, this.state.checkpoint);
-     const selected = this.state.checkpoint[event.target.value] || midpoint ? true : false;
-     checkpoint[event.target.value] = !selected;
-     this.setState({
-       checkpoint: checkpoint,
-     })
-  } 
+  // selectCell =  (event) => {
+  //    let checkpoint = Object.assign({}, this.state.checkpoint);
+  //    const selected = this.state.checkpoint[event.target.value] || midpoint ? true : false;
+  //    checkpoint[event.target.value] = !selected;
+  //    this.setState({
+  //      checkpoint: checkpoint,
+  //    })
+  // } 
 
  
   // Create Random Cell 
