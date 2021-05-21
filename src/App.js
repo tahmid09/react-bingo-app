@@ -59,10 +59,27 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.isbingoForCol(this.state.selectCol);
-    this.isbingoForRow(this.state.selectRow);
-    this.checkLeftTorightDiagonal(this.state.selectRow, this.state.selectCol);
-    this.checkRightToleftDiagonal(this.state.selectRow, this.state.selectCol);
+  //  this.isbingoForCol(this.state.selectCol);
+  //  this.isbingoForRow(this.state.selectRow);
+  //   this.checkLeftTorightDiagonal(this.state.selectRow, this.state.selectCol);
+  //   this.checkRightToleftDiagonal(this.state.selectRow, this.state.selectCol);
+
+ 
+    if(this.isbingoForCol(this.state.selectCol) ||  this.isbingoForRow(this.state.selectRow) || this.checkLeftTorightDiagonal(this.state.selectRow, this.state.selectCol) || this.checkRightToleftDiagonal(this.state.selectRow, this.state.selectCol)) {
+        if (!this.state.showParticle) {
+          this.setState({
+            showParticle: true
+          })
+        }
+        this.playAudio();
+    } else {
+      if (this.state.showParticle) {
+        this.setState({
+          showParticle: false
+        })
+      }
+    }
+
   } 
 
  /* Reset Board   */
@@ -102,16 +119,19 @@ class App extends Component {
     for (let i = col; i < 25; i+= 5) {
       if (!this.state.checkpoint[i]) {
         is_col = false
+        return false
       }
     }
-    if( is_col ) {
-      if (!this.state.showParticle) {
-        this.setState({
-          showParticle: true
-        })
-      }
-      this.playAudio();
-    }
+    return true
+    // if( is_col ) {
+    //   if (!this.state.showParticle) {
+       
+    //     this.setState({
+    //       showParticle: true
+    //     })
+    //   }
+    //   this.playAudio();
+    // } 
   }
  /* check Selected Column   */
   isbingoForRow = (row) => {
@@ -120,16 +140,18 @@ class App extends Component {
     for (let i = rowStart; i < rowStart + 5; i++) {
       if (!this.state.checkpoint[i]) {
         is_row = false;
+        return false
       }
     }
-    if (is_row) {
-      if (!this.state.showParticle) {
-        this.setState({
-          showParticle: true
-        })
-      }
-      this.playAudio();
-    }
+    return true
+    // if (is_row) {
+    //   if (!this.state.showParticle) {
+    //     this.setState({
+    //       showParticle: true
+    //     })
+    //   }
+    //   this.playAudio();
+    // } 
   }
 
 /* Diagonal left to right */
@@ -139,16 +161,18 @@ class App extends Component {
       for (let i = 0; i < 5; i++) {
         if (!this.state.checkpoint[5 * i + i]) {
           is_leftright = false
+          return false
         }
       }
-      if (is_leftright) {
-        if (!this.state.showParticle) {
-          this.setState({
-            showParticle: true
-          })
-        }
-        this.playAudio();
-      }
+      return true
+      // if (is_leftright) {
+      //   if (!this.state.showParticle) {
+      //     this.setState({
+      //       showParticle: true
+      //     })
+      //   }
+      //   this.playAudio();
+      // }
     }
   }
 /* Diagonal right to left */
@@ -158,16 +182,18 @@ class App extends Component {
       for (let i = 0; i < 5; i++) {
         if (!this.state.checkpoint[5 * i + 5 - i - 1]) {
           is_rightleft = false
+          return false
         }
       }
-      if (is_rightleft) {
-        if (!this.state.showParticle) {
-          this.setState({
-            showParticle: true
-          })
-        }
-        this.playAudio();
-      }
+      return true
+      // if (is_rightleft) {
+      //   if (!this.state.showParticle) {
+      //     this.setState({
+      //       showParticle: true
+      //     })
+      //   }
+      //   this.playAudio();
+      // }
     }
   }
 
